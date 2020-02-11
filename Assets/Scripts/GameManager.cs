@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -17,12 +19,12 @@ public class GameManager : MonoBehaviour
     private bool enemiesMoving;
     private bool doingSetup;
 
-    // Start is called before the first frame update
     void Awake()
     {
         if (instance == null)
         {
             instance = this;
+            
         }
         else if (instance != this)
         {
@@ -35,7 +37,7 @@ public class GameManager : MonoBehaviour
         InitGame();
     }
 
-    private void OnLevelWasLoaded(int levelNumber)
+    public void OnLoadCallback(Scene scene, LoadSceneMode sceneMode)
     {
         level++;
         InitGame();
@@ -44,11 +46,11 @@ public class GameManager : MonoBehaviour
     void InitGame()
     {
         doingSetup = true;
-        levelImage = GameObject.Find("LevelImage");
-        levelText = GameObject.Find("LevelText").GetComponent<Text>();
-        levelText.text = "Day " + level;
-        levelImage.SetActive(true);
-        Invoke("HideLevelImage", levelStartDelay);
+        //levelImage = GameObject.Find("LevelImage");
+        //levelText = GameObject.Find("LevelText").GetComponent<Text>();
+        //levelText.text = "Day " + level;
+        //levelImage.SetActive(true);
+        //Invoke("HideLevelImage", levelStartDelay);
 
         //enemies.Clear();
         boardScript.SetupScene(level);

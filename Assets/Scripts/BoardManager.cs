@@ -30,8 +30,11 @@ public class BoardManager : MonoBehaviour
     //public GameObject[] enemyTiles;
     public GameObject[] boundryTiles;
 
+    public GameObject ball;
+
     private Transform boardHolder;
     private List<Vector3> gridPositions = new List<Vector3>();
+    private List<Vector3> validBrickPositions = new List<Vector3>();
 
     void InitalizeList()
     {
@@ -40,7 +43,12 @@ public class BoardManager : MonoBehaviour
         {
             for (int y = 1; y < rows - 1; y++)
             {
-                gridPositions.Add(new Vector3(x, y, 0f));
+                Vector3 gridPosition = new Vector3(x, y, 0f);
+                gridPositions.Add(gridPosition);
+                if(y > columns / 2)
+                {
+                    validBrickPositions.Add(gridPosition);
+                }
             }
         }
     }
@@ -63,11 +71,15 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    Vector3 RandomPosition()
+    /// <summary>
+    /// Finds a random item in the given List<Vector3> then removes and returns it.
+    /// </summary>
+    /// <returns>A random Vector3 from the given grid input.</returns>
+    Vector3 RandomPosition(List<Vector3> grid)
     {
-        int randomIndex = Random.Range(0, gridPositions.Count);
-        Vector3 randomPosition = gridPositions[randomIndex];
-        gridPositions.RemoveAt(randomIndex);
+        int randomIndex = Random.Range(0, grid.Count);
+        Vector3 randomPosition = grid[randomIndex];
+        grid.RemoveAt(randomIndex);
         return randomPosition;
     }
 
@@ -77,7 +89,7 @@ public class BoardManager : MonoBehaviour
 
         for (int i = 0; i < objectCount; i++)
         {
-            Vector3 randomPosition = RandomPosition();
+            Vector3 randomPosition = RandomPosition(validBrickPositions);
             GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length)];
             Instantiate(tileChoice, randomPosition, Quaternion.identity);
         }
@@ -88,6 +100,12 @@ public class BoardManager : MonoBehaviour
         BoardSetup();
         InitalizeList();
         LayoutObjectAtRandom(brickTiles, brickCount.minimum, brickCount.maximum);
+
+        GameObject gameBall = Instantiate(ball, new Vector3(rows / 2, 1, 0f), Quaternion.identity) as GameObject;
+        gameBall.transform.SetParent(boardHolder);
+        Rigidbody2D ballRigidBody2D = gameBall.GetComponent<Rigidbody2D>();
+        ballRigidBody2D.AddForce(new Vector2(Random.Range(130, 180), Random.Range(130, 180)));
+
         //int enemyCount = (int)Mathf.Log(level, 2f);
         //LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
         //Instantiate(exit, new Vector3(columns - 1, rows - 1, 0F), Quaternion.identity);

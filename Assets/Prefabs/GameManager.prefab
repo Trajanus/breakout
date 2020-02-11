@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4471894143336568433
+--- !u!1 &6263336437399896359
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 744538231387586007}
-  - component: {fileID: 7468765630688934430}
+  - component: {fileID: 4197635926718861401}
+  - component: {fileID: 3181566909353864421}
+  - component: {fileID: 7506643018720611657}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -17,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &744538231387586007
+--- !u!4 &4197635926718861401
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4471894143336568433}
+  m_GameObject: {fileID: 6263336437399896359}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,13 +32,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7468765630688934430
+--- !u!114 &3181566909353864421
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4471894143336568433}
+  m_GameObject: {fileID: 6263336437399896359}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ed6efdd6bc3a9341966236941774f13, type: 3}
@@ -46,9 +47,25 @@ MonoBehaviour:
   columns: 8
   rows: 8
   brickCount:
-    minimum: 5
-    maximum: 9
+    minimum: 12
+    maximum: 12
   brickTiles:
   - {fileID: 1615817238395203378, guid: 789f7010030309f40be0819c3fac965a, type: 3}
   boundryTiles:
   - {fileID: 4925440111045412338, guid: ab6a814223863504280518fa783ac333, type: 3}
+  ball: {fileID: 2293846891490313190, guid: 91f44f0c9d66c50458ecba08b3b3ff44, type: 3}
+--- !u!114 &7506643018720611657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6263336437399896359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7790a1e0268d3045a6cb68d6c4ad3f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelStartDelay: 2
+  boardScript: {fileID: 0}
+  playerHealth: 100
