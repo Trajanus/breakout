@@ -341,9 +341,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1ac789b120d60644ae022e9cdcd42aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 0.1
-  maxMoveSpeed: 25
-  mouseMovementMultiplier: 50
+  paddleMovementDamperSize: 0.1
+  moveSpeed: 50
 --- !u!50 &1268153743
 Rigidbody2D:
   serializedVersion: 4
@@ -364,7 +363,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
+  m_Constraints: 0
 --- !u!61 &1268153744
 BoxCollider2D:
   m_ObjectHideFlags: 0
