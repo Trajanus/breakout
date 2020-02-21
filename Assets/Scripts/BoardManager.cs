@@ -63,9 +63,9 @@ public class BoardManager : MonoBehaviour
             {             
                 if (x == -1 || x == columns || y == -1 || y == rows)
                 {
-                    GameObject toInstantiate = boundryTiles[Random.Range(0, boundryTiles.Length)];
-                    GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
-                    instance.transform.SetParent(boardHolder);
+                    //GameObject toInstantiate = boundryTiles[Random.Range(0, boundryTiles.Length)];
+                    //GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+                    //instance.transform.SetParent(boardHolder);
                 }
             }
         }
@@ -101,10 +101,14 @@ public class BoardManager : MonoBehaviour
         InitalizeList();
         LayoutObjectAtRandom(brickTiles, brickCount.minimum, brickCount.maximum);
 
+        //Camera.main.ScreenToWorldPoint
+        //var width = Camera.main.pixelWidth;
+        //var height = Camera.main.pixelHeight
+
         GameObject gameBall = Instantiate(ball, new Vector3(rows / 2, 1, 0f), Quaternion.identity) as GameObject;
         gameBall.transform.SetParent(boardHolder);
         Rigidbody2D ballRigidBody2D = gameBall.GetComponent<Rigidbody2D>();
-        ballRigidBody2D.AddForce(new Vector2(Random.Range(130, 180), Random.Range(130, 180)));
+        ballRigidBody2D.AddForce(new Vector2(Random.Range(330, 380), Random.Range(330, 380)));
 
         //int enemyCount = (int)Mathf.Log(level, 2f);
         //LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);

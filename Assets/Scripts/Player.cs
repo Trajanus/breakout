@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float paddleMovementDamperSize = .2f;
-    public int moveSpeed = 50;
+    public float moveSpeed = .1F;
 
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb2D;
@@ -21,20 +21,27 @@ public class Player : MonoBehaviour
     void Update()
     {
 
+
+    }
+
+    private void FixedUpdate()
+    {
         Vector3 gameWorldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float xDiff = rb2D.position.x - gameWorldMousePosition.x;
 
         if (xDiff > paddleMovementDamperSize)
         {
-            rb2D.AddForce(new Vector2(-moveSpeed, 0));
+            rb2D.MovePosition(new Vector2(rb2D.position.x - moveSpeed, rb2D.position.y));
+            //rb2D.AddForce(new Vector2(-moveSpeed, 0));
         }
         else if (xDiff < -paddleMovementDamperSize)
         {
-            rb2D.AddForce(new Vector2(moveSpeed, 0));
+            rb2D.MovePosition(new Vector2(rb2D.position.x + moveSpeed, rb2D.position.y));
+            //rb2D.AddForce(new Vector2(moveSpeed, 0));
         }
         else
         {
-            rb2D.velocity = Vector2.zero;
+            //rb2D.velocity = Vector2.zero;
         }
     }
 }
