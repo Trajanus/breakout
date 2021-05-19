@@ -105,9 +105,9 @@ public class BoardManager : MonoBehaviour
         //var width = Camera.main.pixelWidth;
         //var height = Camera.main.pixelHeight
 
-        GameObject gameBall = Instantiate(ball, new Vector3(rows / 2, 1, 0f), Quaternion.identity) as GameObject;
-        gameBall.transform.SetParent(boardHolder);
-        Rigidbody2D ballRigidBody2D = gameBall.GetComponent<Rigidbody2D>();
+        ball = Instantiate(ball, new Vector3(rows / 2, 1, 0f), Quaternion.identity) as GameObject;
+        ball.transform.SetParent(boardHolder);
+        Rigidbody2D ballRigidBody2D = ball.GetComponent<Rigidbody2D>();
         ballRigidBody2D.AddForce(new Vector2(Random.Range(330, 380), Random.Range(330, 380)));
 
         //int enemyCount = (int)Mathf.Log(level, 2f);

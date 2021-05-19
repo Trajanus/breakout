@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb2D;
 
+    private static readonly double LEFT_LEVEL_EDGE = -1.8;
+    private static readonly double RIGHT_LEVEL_EDGE = 8.6;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,17 +34,19 @@ public class Player : MonoBehaviour
 
         if (xDiff > paddleMovementDamperSize)
         {
-            rb2D.MovePosition(new Vector2(rb2D.position.x - moveSpeed, rb2D.position.y));
-            //rb2D.AddForce(new Vector2(-moveSpeed, 0));
+            Vector2 move = transform.position + Vector3.left * moveSpeed;
+            if (move.x > LEFT_LEVEL_EDGE)
+            {
+                rb2D.MovePosition(move);
+            }
         }
         else if (xDiff < -paddleMovementDamperSize)
         {
-            rb2D.MovePosition(new Vector2(rb2D.position.x + moveSpeed, rb2D.position.y));
-            //rb2D.AddForce(new Vector2(moveSpeed, 0));
-        }
-        else
-        {
-            //rb2D.velocity = Vector2.zero;
+            Vector2 move = transform.position + Vector3.right * moveSpeed;
+            if (move.x < RIGHT_LEVEL_EDGE)
+            {
+                rb2D.MovePosition(move);
+            }
         }
     }
 }

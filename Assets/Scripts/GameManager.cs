@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     private bool enemiesMoving;
     private bool doingSetup;
 
+    private System.Random random = new System.Random();
+
     void Awake()
     {
         if (instance == null)
@@ -72,9 +74,26 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemiesMoving || doingSetup)
+        //if (enemiesMoving || doingSetup)
+        //{
+        //    return;
+        //}
+
+        if(boardScript.ball.transform.position.y < -5)
         {
-            return;
+            var ballrb = boardScript.ball.GetComponent<Rigidbody2D>();
+            ballrb.velocity = Vector2.zero;
+            
+
+            if(random.Next(2) == 1)
+            {
+                ballrb.AddForce(new Vector2(UnityEngine.Random.Range(-330, -380), UnityEngine.Random.Range(330, 380)));
+            }
+            else
+            {
+                ballrb.AddForce(new Vector2(UnityEngine.Random.Range(330, 380), UnityEngine.Random.Range(330, 380)));
+            }
+            boardScript.ball.transform.position = new Vector3(3, 3, boardScript.ball.transform.position.z);
         }
 
         //StartCoroutine(MoveEnemies());
