@@ -25,7 +25,8 @@ public class BoardManager : MonoBehaviour
     //public Count foodCount = new Count(1, 5);
     //public GameObject exit;
     //public GameObject[] floorTitles;
-    public GameObject[] brickTiles;
+    public GameObject[] brickTypeTiles;
+    public List<GameObject> bricks;
     //public GameObject[] foodTiles;
     //public GameObject[] enemyTiles;
     public GameObject[] boundryTiles;
@@ -91,15 +92,16 @@ public class BoardManager : MonoBehaviour
         {
             Vector3 randomPosition = RandomPosition(validBrickPositions);
             GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length)];
-            Instantiate(tileChoice, randomPosition, Quaternion.identity);
+            bricks.Add(Instantiate(tileChoice, randomPosition, Quaternion.identity));
         }
     }
 
     public void SetupScene(int level)
     {
+        bricks = new List<GameObject>();
         BoardSetup();
         InitalizeList();
-        LayoutObjectAtRandom(brickTiles, brickCount.minimum, brickCount.maximum);
+        LayoutObjectAtRandom(brickTypeTiles, brickCount.minimum, brickCount.maximum);
 
         //Camera.main.ScreenToWorldPoint
         //var width = Camera.main.pixelWidth;

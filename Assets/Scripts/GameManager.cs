@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
             ballrb.velocity = Vector2.zero;
             
 
-            if(random.Next(2) == 1)
+            if(1 == random.Next(2))
             {
                 ballrb.AddForce(new Vector2(UnityEngine.Random.Range(-330, -380), UnityEngine.Random.Range(330, 380)));
             }
@@ -94,6 +94,13 @@ public class GameManager : MonoBehaviour
                 ballrb.AddForce(new Vector2(UnityEngine.Random.Range(330, 380), UnityEngine.Random.Range(330, 380)));
             }
             boardScript.ball.transform.position = new Vector3(3, 3, boardScript.ball.transform.position.z);
+        }
+
+        boardScript.bricks.RemoveAll(gameObject => gameObject == null); // remove any destroyed bricks
+
+        if (0 == boardScript.bricks.Count)
+        {
+            boardScript.SetupScene(0);
         }
 
         //StartCoroutine(MoveEnemies());

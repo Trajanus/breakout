@@ -49,8 +49,9 @@ MonoBehaviour:
   brickCount:
     minimum: 12
     maximum: 12
-  brickTiles:
+  brickTypeTiles:
   - {fileID: 1615817238395203378, guid: 789f7010030309f40be0819c3fac965a, type: 3}
+  bricks: []
   boundryTiles:
   - {fileID: 4925440111045412338, guid: ab6a814223863504280518fa783ac333, type: 3}
   ball: {fileID: 2293846891490313190, guid: 91f44f0c9d66c50458ecba08b3b3ff44, type: 3}
