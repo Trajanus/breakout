@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   paddleMovementDamperSize: 0.8
-  moveSpeed: 0.1
+  moveSpeed: 1
 --- !u!50 &1268153743
 Rigidbody2D:
   serializedVersion: 4
