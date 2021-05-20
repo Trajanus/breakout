@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
 
         if (0 == boardScript.bricks.Count)
         {
-            boardScript.SetupScene(0);
+            boardScript.SetupScene(++level);
         }
 
         //StartCoroutine(MoveEnemies());

@@ -98,17 +98,22 @@ public class BoardManager : MonoBehaviour
 
     public void SetupScene(int level)
     {
+
         bricks = new List<GameObject>();
         BoardSetup();
         InitalizeList();
         LayoutObjectAtRandom(brickTypeTiles, brickCount.minimum, brickCount.maximum);
 
-        //Camera.main.ScreenToWorldPoint
-        //var width = Camera.main.pixelWidth;
-        //var height = Camera.main.pixelHeight
+        if (1 == level)
+        {
+            ball = Instantiate(ball, new Vector3(rows / 2, 1, 0f), Quaternion.identity) as GameObject;
+            ball.transform.SetParent(boardHolder);
+        }
+        else
+        {
+            ball.transform.position = new Vector3(3, 3, ball.transform.position.z);
+        }
 
-        ball = Instantiate(ball, new Vector3(rows / 2, 1, 0f), Quaternion.identity) as GameObject;
-        ball.transform.SetParent(boardHolder);
         Rigidbody2D ballRigidBody2D = ball.GetComponent<Rigidbody2D>();
         ballRigidBody2D.AddForce(new Vector2(Random.Range(330, 380), Random.Range(330, 380)));
 
