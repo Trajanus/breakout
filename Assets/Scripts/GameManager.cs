@@ -48,11 +48,8 @@ public class GameManager : MonoBehaviour
     void InitGame()
     {
         doingSetup = true;
-        //levelImage = GameObject.Find("LevelImage");
-        //levelText = GameObject.Find("LevelText").GetComponent<Text>();
-        //levelText.text = "Day " + level;
-        //levelImage.SetActive(true);
-        //Invoke("HideLevelImage", levelStartDelay);
+
+        SetLevelText(level);
 
         //enemies.Clear();
         boardScript.SetupScene(level);
@@ -69,6 +66,12 @@ public class GameManager : MonoBehaviour
         levelText.text = "After " + level + " days, you starved.";
         levelImage.SetActive(true);
         enabled = false;
+    }
+
+    private void SetLevelText(int levelCount)
+    {
+        levelText = GameObject.Find("LevelText").GetComponent<Text>();
+        levelText.text = "Level " + levelCount;
     }
 
     // Update is called once per frame
@@ -101,6 +104,7 @@ public class GameManager : MonoBehaviour
         if (0 == boardScript.bricks.Count)
         {
             boardScript.SetupScene(++level);
+            SetLevelText(level);
         }
 
         //StartCoroutine(MoveEnemies());
