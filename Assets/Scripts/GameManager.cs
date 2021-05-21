@@ -11,10 +11,10 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     public BoardManager boardScript;
     public int playerBallCount = 5;
+    public AudioClip ballLoss;
 
     private Text ballCountText;
     private Text levelText;
-    private GameObject levelImage;
     private int level = 1;
     //private List<Enemy> enemies;
     private bool enemiesMoving;
@@ -59,12 +59,6 @@ public class GameManager : MonoBehaviour
         boardScript.SetupScene(level);
     }
 
-    private void HideLevelImage()
-    {
-        levelImage.SetActive(false);
-        doingSetup = false;
-    }
-
     public void GameOver()
     {
         levelText.text = $"You made it to level {level}.";
@@ -92,39 +86,43 @@ public class GameManager : MonoBehaviour
 
         if(boardScript.ball.transform.position.y < -5)
         {
-            playerBallCount--;
-            SetBallCountText(playerBallCount);
+            PlayerBallLost();
+        }
 
-            if(playerBallCount <= 0)
+        boardScript.bricks.RemoveAll(gameObject => gameObject == null); // remove any destroyed bricks
+        if (0 == boardScript.bricks.Count)
+        {
+            boardScript.SetupScene(++level);
+            SetLevelText(level);
+        }
+        //StartCoroutine(MoveEnemies());
+    }
+
+    private void PlayerBallLost()
+    {
+        SoundManager.instance.PlayOneShot(ballLoss);
+        playerBallCount--;
+        SetBallCountText(playerBallCount);
+
+        if (playerBallCount <= 0)
+        {
+            GameOver();
+        }
+        else
+        {
+            var ballrb = boardScript.ball.GetComponent<Rigidbody2D>();
+            ballrb.velocity = Vector2.zero;
+
+            if (1 == random.Next(2))
             {
-                GameOver();
+                ballrb.AddForce(new Vector2(UnityEngine.Random.Range(-330, -380), UnityEngine.Random.Range(330, 380)));
             }
             else
             {
-                var ballrb = boardScript.ball.GetComponent<Rigidbody2D>();
-                ballrb.velocity = Vector2.zero;
-
-
-                if (1 == random.Next(2))
-                {
-                    ballrb.AddForce(new Vector2(UnityEngine.Random.Range(-330, -380), UnityEngine.Random.Range(330, 380)));
-                }
-                else
-                {
-                    ballrb.AddForce(new Vector2(UnityEngine.Random.Range(330, 380), UnityEngine.Random.Range(330, 380)));
-                }
-                boardScript.ball.transform.position = new Vector3(3, 3, boardScript.ball.transform.position.z);
+                ballrb.AddForce(new Vector2(UnityEngine.Random.Range(330, 380), UnityEngine.Random.Range(330, 380)));
             }
-
-            boardScript.bricks.RemoveAll(gameObject => gameObject == null); // remove any destroyed bricks
-
-            if (0 == boardScript.bricks.Count)
-            {
-                boardScript.SetupScene(++level);
-                SetLevelText(level);
-            }
+            boardScript.ball.transform.position = new Vector3(3, 3, boardScript.ball.transform.position.z);
         }
-        //StartCoroutine(MoveEnemies());
     }
 
     //public void AddEnemyToList(Enemy script)

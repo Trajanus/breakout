@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Brick : MonoBehaviour
 {
+    public AudioClip damageSound;
+
     private SpriteRenderer spriteRenderer;
 
     void Start()
@@ -19,7 +21,8 @@ public class Brick : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if(Color.red == spriteRenderer.color)
+        SoundManager.instance.PlaySingle(damageSound);
+        if (Color.red == spriteRenderer.color)
         {
             Destroy(gameObject);
         }

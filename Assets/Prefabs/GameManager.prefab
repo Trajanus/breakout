@@ -69,4 +69,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelStartDelay: 2
   boardScript: {fileID: 0}
-  playerHealth: 100
+  playerBallCount: 5
+  ballLoss: {fileID: 8300000, guid: e3a4bba91342da84894c405790879b57, type: 3}
