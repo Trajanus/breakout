@@ -10,8 +10,8 @@ public class Player : MonoBehaviour
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb2D;
 
-    private static readonly double LEFT_LEVEL_EDGE = -1.8;
-    private static readonly double RIGHT_LEVEL_EDGE = 8.6;
+    private static readonly double LEFT_LEVEL_EDGE = -3.8;
+    private static readonly double RIGHT_LEVEL_EDGE = 10.6;
 
     // Start is called before the first frame update
     void Start()
