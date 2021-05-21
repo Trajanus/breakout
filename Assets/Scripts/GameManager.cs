@@ -10,8 +10,9 @@ public class GameManager : MonoBehaviour
     public float levelStartDelay = 2f;
     public static GameManager instance = null;
     public BoardManager boardScript;
-    public int playerHealth = 100;
+    public int playerBallCount = 5;
 
+    private Text ballCountText;
     private Text levelText;
     private GameObject levelImage;
     private int level = 1;
@@ -49,7 +50,10 @@ public class GameManager : MonoBehaviour
     {
         doingSetup = true;
 
+        levelText = GameObject.Find("LevelText").GetComponent<Text>();
+        ballCountText = GameObject.Find("BallCountText").GetComponent<Text>();
         SetLevelText(level);
+        SetBallCountText(playerBallCount);
 
         //enemies.Clear();
         boardScript.SetupScene(level);
@@ -63,15 +67,19 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        levelText.text = "After " + level + " days, you starved.";
-        levelImage.SetActive(true);
+        levelText.text = $"You made it to level {level}.";
+        //levelImage.SetActive(true);
         enabled = false;
     }
 
     private void SetLevelText(int levelCount)
     {
-        levelText = GameObject.Find("LevelText").GetComponent<Text>();
         levelText.text = "Level " + levelCount;
+    }
+
+    private void SetBallCountText(int ballCount)
+    {
+        ballCountText.text = "Balls: " + ballCount;
     }
 
     // Update is called once per frame
@@ -84,29 +92,38 @@ public class GameManager : MonoBehaviour
 
         if(boardScript.ball.transform.position.y < -5)
         {
-            var ballrb = boardScript.ball.GetComponent<Rigidbody2D>();
-            ballrb.velocity = Vector2.zero;
-            
+            playerBallCount--;
+            SetBallCountText(playerBallCount);
 
-            if(1 == random.Next(2))
+            if(playerBallCount <= 0)
             {
-                ballrb.AddForce(new Vector2(UnityEngine.Random.Range(-330, -380), UnityEngine.Random.Range(330, 380)));
+                GameOver();
             }
             else
             {
-                ballrb.AddForce(new Vector2(UnityEngine.Random.Range(330, 380), UnityEngine.Random.Range(330, 380)));
+                var ballrb = boardScript.ball.GetComponent<Rigidbody2D>();
+                ballrb.velocity = Vector2.zero;
+
+
+                if (1 == random.Next(2))
+                {
+                    ballrb.AddForce(new Vector2(UnityEngine.Random.Range(-330, -380), UnityEngine.Random.Range(330, 380)));
+                }
+                else
+                {
+                    ballrb.AddForce(new Vector2(UnityEngine.Random.Range(330, 380), UnityEngine.Random.Range(330, 380)));
+                }
+                boardScript.ball.transform.position = new Vector3(3, 3, boardScript.ball.transform.position.z);
             }
-            boardScript.ball.transform.position = new Vector3(3, 3, boardScript.ball.transform.position.z);
+
+            boardScript.bricks.RemoveAll(gameObject => gameObject == null); // remove any destroyed bricks
+
+            if (0 == boardScript.bricks.Count)
+            {
+                boardScript.SetupScene(++level);
+                SetLevelText(level);
+            }
         }
-
-        boardScript.bricks.RemoveAll(gameObject => gameObject == null); // remove any destroyed bricks
-
-        if (0 == boardScript.bricks.Count)
-        {
-            boardScript.SetupScene(++level);
-            SetLevelText(level);
-        }
-
         //StartCoroutine(MoveEnemies());
     }
 
