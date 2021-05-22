@@ -22,13 +22,8 @@ public class BoardManager : MonoBehaviour
     public int columns = 8;
     public int rows = 8;
     public Count brickCount = new Count(5, 9);
-    //public Count foodCount = new Count(1, 5);
-    //public GameObject exit;
-    //public GameObject[] floorTitles;
     public GameObject[] brickTypeTiles;
     public List<GameObject> bricks;
-    //public GameObject[] foodTiles;
-    //public GameObject[] enemyTiles;
     public GameObject[] boundryTiles;
 
     public GameObject ball;
@@ -98,7 +93,6 @@ public class BoardManager : MonoBehaviour
 
     public void SetupScene(int level)
     {
-
         bricks = new List<GameObject>();
         BoardSetup();
         InitalizeList();

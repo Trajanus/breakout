@@ -13,12 +13,28 @@ public class GameManager : MonoBehaviour
     public int playerBallCount = 5;
     public AudioClip ballLoss;
 
+    public AudioClip levelClip;
+    public AudioClip one;
+    public AudioClip two;
+    public AudioClip three;
+    public AudioClip four;
+    public AudioClip five;
+    public AudioClip six;
+    public AudioClip seven;
+    public AudioClip eight;
+    public AudioClip nine;
+    public AudioClip ten;
+    public AudioClip aLot;
+
     private Text ballCountText;
     private Text levelText;
-    private int level = 1;
+
+    public int Level { get; private set; } = 1;
+
     //private List<Enemy> enemies;
     private bool enemiesMoving;
     private bool doingSetup;
+    private bool gameover = false;
 
     private System.Random random = new System.Random();
 
@@ -27,7 +43,7 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            
+
         }
         else if (instance != this)
         {
@@ -40,30 +56,36 @@ public class GameManager : MonoBehaviour
         InitGame();
     }
 
+    private void Start()
+    {
+        PlayLevelClips();
+    }
+
     public void OnLoadCallback(Scene scene, LoadSceneMode sceneMode)
     {
-        level++;
+        Level++;
         InitGame();
     }
 
     void InitGame()
     {
+        Level = 1;
+        playerBallCount = 5;
         doingSetup = true;
 
         levelText = GameObject.Find("LevelText").GetComponent<Text>();
         ballCountText = GameObject.Find("BallCountText").GetComponent<Text>();
-        SetLevelText(level);
+        SetLevelText(Level);
         SetBallCountText(playerBallCount);
 
         //enemies.Clear();
-        boardScript.SetupScene(level);
+        boardScript.SetupScene(Level);
     }
 
     public void GameOver()
     {
-        levelText.text = $"You made it to level {level}.";
-        //levelImage.SetActive(true);
-        enabled = false;
+        gameover = true;
+        levelText.text = $"You made it to level {Level}.";
     }
 
     private void SetLevelText(int levelCount)
@@ -84,17 +106,36 @@ public class GameManager : MonoBehaviour
         //    return;
         //}
 
-        if(boardScript.ball.transform.position.y < -5)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PlayerBallLost();
+            Application.Quit();
         }
 
-        boardScript.bricks.RemoveAll(gameObject => gameObject == null); // remove any destroyed bricks
-        if (0 == boardScript.bricks.Count)
+        if (!gameover)
         {
-            boardScript.SetupScene(++level);
-            SetLevelText(level);
+            if (boardScript.ball.transform.position.y < -5)
+            {
+                PlayerBallLost();
+            }
+
+            boardScript.bricks.RemoveAll(gameObject => gameObject == null); // remove any destroyed bricks
+            if (0 == boardScript.bricks.Count)
+            {
+                boardScript.SetupScene(++Level);
+                SetLevelText(Level);
+
+                PlayLevelClips();
+            }
         }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                gameover = false;
+                InitGame();
+            }
+        }
+
         //StartCoroutine(MoveEnemies());
     }
 
@@ -123,6 +164,35 @@ public class GameManager : MonoBehaviour
             }
             boardScript.ball.transform.position = new Vector3(3, 3, boardScript.ball.transform.position.z);
         }
+    }
+
+    private void PlayLevelClips()
+    {
+        AudioClip[] levelAudio = new AudioClip[2];
+        levelAudio[0] = levelClip;
+        levelAudio[1] = GetLevelNumberClip();
+        StartCoroutine(SoundManager.instance.PlayAudioSequentially(levelAudio));
+    }
+
+    private AudioClip GetLevelNumberClip()
+    {
+        AudioClip levelNumberClip;
+        switch (instance.Level)
+        {
+            case 1: levelNumberClip = one; break;
+            case 2: levelNumberClip = two; break;
+            case 3: levelNumberClip = three; break;
+            //case 4: levelNumberClip = four; break;
+            //case 5: levelNumberClip = five; break;
+            //case 6: levelNumberClip = six; break;
+            //case 7: levelNumberClip = seven; break;
+            //case 8: levelNumberClip = eight; break;
+            //case 9: levelNumberClip = nine; break;
+            //case 10: levelNumberClip = ten; break;
+            default: levelNumberClip = aLot; break;
+        }
+
+        return levelNumberClip;
     }
 
     //public void AddEnemyToList(Enemy script)

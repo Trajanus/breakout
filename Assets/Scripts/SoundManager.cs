@@ -5,6 +5,7 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public AudioSource efxSource;
+    public AudioSource levelSource;
     public AudioSource musicSource;
     public static SoundManager instance = null;
 
@@ -35,5 +36,19 @@ public class SoundManager : MonoBehaviour
     public void PlayOneShot(AudioClip clip)
     {
         efxSource.PlayOneShot(clip);
+    }
+
+    public IEnumerator PlayAudioSequentially(AudioClip[] clips)
+    {
+        yield return null;
+        for (int i = 0; i < clips.Length; i++)
+        {
+            levelSource.clip = clips[i];
+            levelSource.Play();
+            while (levelSource.isPlaying)
+            {
+                yield return null;
+            }
+        }
     }
 }
