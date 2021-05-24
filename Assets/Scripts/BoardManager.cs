@@ -26,9 +26,10 @@ public class BoardManager : MonoBehaviour
     public List<GameObject> bricks;
     public GameObject[] boundryTiles;
 
+    public Vector2 BallStartLocation = new Vector2(3, 3);
+
     public GameObject ball;
 
-    private Transform boardHolder;
     private List<Vector3> gridPositions = new List<Vector3>();
     private List<Vector3> validBrickPositions = new List<Vector3>();
 
@@ -44,24 +45,6 @@ public class BoardManager : MonoBehaviour
                 if(y > columns / 2)
                 {
                     validBrickPositions.Add(gridPosition);
-                }
-            }
-        }
-    }
-
-    void BoardSetup()
-    {
-        boardHolder = new GameObject("Board").transform;
-
-        for (int x = -1; x < columns + 1; x++)
-        {
-            for (int y = -1; y < rows + 1; y++)
-            {             
-                if (x == -1 || x == columns || y == -1 || y == rows)
-                {
-                    //GameObject toInstantiate = boundryTiles[Random.Range(0, boundryTiles.Length)];
-                    //GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
-                    //instance.transform.SetParent(boardHolder);
                 }
             }
         }
@@ -94,25 +77,19 @@ public class BoardManager : MonoBehaviour
     public void SetupScene(int level)
     {
         bricks = new List<GameObject>();
-        BoardSetup();
         InitalizeList();
         LayoutObjectAtRandom(brickTypeTiles, brickCount.minimum, brickCount.maximum);
 
         if (1 == level)
         {
             ball = Instantiate(ball, new Vector3(rows / 2, 1, 0f), Quaternion.identity) as GameObject;
-            ball.transform.SetParent(boardHolder);
         }
         else
         {
-            ball.transform.position = new Vector3(3, 3, ball.transform.position.z);
+            ball.transform.position = new Vector3(BallStartLocation.x, BallStartLocation.y, ball.transform.position.z);
         }
 
         Rigidbody2D ballRigidBody2D = ball.GetComponent<Rigidbody2D>();
         ballRigidBody2D.AddForce(new Vector2(Random.Range(330, 380), Random.Range(330, 380)));
-
-        //int enemyCount = (int)Mathf.Log(level, 2f);
-        //LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
-        //Instantiate(exit, new Vector3(columns - 1, rows - 1, 0F), Quaternion.identity);
     }
 }
