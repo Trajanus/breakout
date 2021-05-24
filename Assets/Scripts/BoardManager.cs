@@ -21,31 +21,32 @@ public class BoardManager : MonoBehaviour
 
     public int columns = 8;
     public int rows = 8;
-    public Count brickCount = new Count(5, 9);
+    public Count brickCount = new Count(10, 30);
     public GameObject[] brickTypeTiles;
     public List<GameObject> bricks;
     public GameObject[] boundryTiles;
+
+    public int MaximumValidBrickY;
+    public int MinimumValidBrickY;
+
+    public int MaximumValidBrickX;
+    public int MinimumValidBrickX;
 
     public Vector2 BallStartLocation = new Vector2(3, 3);
 
     public GameObject ball;
 
-    private List<Vector3> gridPositions = new List<Vector3>();
     private List<Vector3> validBrickPositions = new List<Vector3>();
 
-    void InitalizeList()
+    void InitializeValidBrickLocations()
     {
-        gridPositions.Clear();
-        for (int x = 1; x < columns - 1; x++)
+        validBrickPositions.Clear();
+        for (int x = MinimumValidBrickX; x <= MaximumValidBrickX; x++)
         {
-            for (int y = 1; y < rows - 1; y++)
+            for (int y = MinimumValidBrickY; y <= MaximumValidBrickY; y++)
             {
                 Vector3 gridPosition = new Vector3(x, y, 0f);
-                gridPositions.Add(gridPosition);
-                if(y > columns / 2)
-                {
-                    validBrickPositions.Add(gridPosition);
-                }
+                validBrickPositions.Add(gridPosition);
             }
         }
     }
@@ -64,7 +65,7 @@ public class BoardManager : MonoBehaviour
 
     void LayoutObjectAtRandom(GameObject[] tileArray, int minimum, int maximum)
     {
-        int objectCount = Random.Range(minimum, maximum + 1);
+        int objectCount = Random.Range(minimum, maximum + 1); // Plus one is due to Maximum of Random.Range being exclusive, but we want to include our maximum value.
 
         for (int i = 0; i < objectCount; i++)
         {
@@ -77,7 +78,7 @@ public class BoardManager : MonoBehaviour
     public void SetupScene(int level)
     {
         bricks = new List<GameObject>();
-        InitalizeList();
+        InitializeValidBrickLocations();
         LayoutObjectAtRandom(brickTypeTiles, brickCount.minimum, brickCount.maximum);
 
         if (1 == level)
