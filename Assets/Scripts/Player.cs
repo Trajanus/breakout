@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
 
         if (xDiff > paddleMovementDamperSize)
         {
-            Vector2 move = transform.position + Vector3.left * moveSpeed;
+            Vector2 move = transform.position + Vector3.left * moveSpeed * Time.deltaTime;
             if (move.x > LeftLevelEdge)
             {
                 rb2D.MovePosition(move);
@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
         }
         else if (xDiff < -paddleMovementDamperSize)
         {
-            Vector2 move = transform.position + Vector3.right * moveSpeed;
+            Vector2 move = transform.position + Vector3.right * moveSpeed * Time.deltaTime;
             if (move.x < RightLevelEdge)
             {
                 rb2D.MovePosition(move);
