@@ -28,7 +28,7 @@ public class Ball : MonoBehaviour
             rb2d.velocity = rb2d.velocity.normalized * maxSpeed;
         }
 
-        if (rb2d.velocity.magnitude > minSpeed)
+        if (rb2d.velocity.magnitude < minSpeed)
         {
             rb2d.velocity = rb2d.velocity.normalized * minSpeed;
         }

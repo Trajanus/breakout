@@ -6,12 +6,11 @@ public class Player : MonoBehaviour
 {
     public float paddleMovementDamperSize = .2f;
     public float moveSpeed = .1F;
+    public double LeftLevelEdge = -4.4;
+    public double RightLevelEdge = 11.2;
 
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb2D;
-
-    private static readonly double LEFT_LEVEL_EDGE = -3.8;
-    private static readonly double RIGHT_LEVEL_EDGE = 10.6;
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +34,7 @@ public class Player : MonoBehaviour
         if (xDiff > paddleMovementDamperSize)
         {
             Vector2 move = transform.position + Vector3.left * moveSpeed;
-            if (move.x > LEFT_LEVEL_EDGE)
+            if (move.x > LeftLevelEdge)
             {
                 rb2D.MovePosition(move);
             }
@@ -43,7 +42,7 @@ public class Player : MonoBehaviour
         else if (xDiff < -paddleMovementDamperSize)
         {
             Vector2 move = transform.position + Vector3.right * moveSpeed;
-            if (move.x < RIGHT_LEVEL_EDGE)
+            if (move.x < RightLevelEdge)
             {
                 rb2D.MovePosition(move);
             }
