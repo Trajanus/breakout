@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 264334159}
   - component: {fileID: 264334162}
   - component: {fileID: 264334161}
+  - component: {fileID: 264334163}
   m_Layer: 0
   m_Name: MagneticPowerup
   m_TagString: Untagged
@@ -215,6 +216,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collisionSound: {fileID: 8300000, guid: 47f08b38e20d76c4d8fcb0a08719747b, type: 3}
+  LeftLevelEdge: -4.4
+  RightLevelEdge: 11.2
 --- !u!61 &264334162
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -241,6 +244,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.63, y: 0.63}
   m_EdgeRadius: 0
+--- !u!50 &264334163
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264334158}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &391432274
 GameObject:
   m_ObjectHideFlags: 0

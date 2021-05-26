@@ -84,6 +84,7 @@ public class BoardManager : MonoBehaviour
         if (1 == level)
         {
             ball = Instantiate(ball, new Vector3(rows / 2, 1, 0f), Quaternion.identity) as GameObject;
+            ball.name = Ball.Name;
         }
         else
         {

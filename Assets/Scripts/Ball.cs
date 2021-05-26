@@ -5,6 +5,8 @@ using UnityEngine.UIElements;
 
 public class Ball : MonoBehaviour
 {
+    public const string Name = "Ball";
+
     public float maxSpeed;
     public float minSpeed;
 
@@ -21,7 +23,7 @@ public class Ball : MonoBehaviour
         
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    private void FixedUpdate()
     {
         if (rb2d.velocity.magnitude > maxSpeed)
         {
@@ -32,5 +34,10 @@ public class Ball : MonoBehaviour
         {
             rb2d.velocity = rb2d.velocity.normalized * minSpeed;
         }
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+
     }
 }

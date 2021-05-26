@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     public BoardManager boardScript;
     public int playerBallCount = 5;
+
+    public double LeftLevelEdge = -4.4;
+    public double RightLevelEdge = 11.2;
+
     public AudioClip ballLoss;
 
     public AudioClip levelClip;
