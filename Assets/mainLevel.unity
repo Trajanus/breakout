@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 264334163}
   m_Layer: 0
   m_Name: MagneticPowerup
-  m_TagString: Untagged
+  m_TagString: Powerup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -735,8 +735,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paddleMovementDamperSize: 0.2
   moveSpeed: 20
-  LeftLevelEdge: -4.4
-  RightLevelEdge: 11.2
+  hasMagneticPowerup: 0
 --- !u!50 &1268153743
 Rigidbody2D:
   serializedVersion: 4

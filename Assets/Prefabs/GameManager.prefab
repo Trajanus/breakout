@@ -75,6 +75,8 @@ MonoBehaviour:
   levelStartDelay: 2
   boardScript: {fileID: 0}
   playerBallCount: 5
+  LeftLevelEdge: -4.4
+  RightLevelEdge: 11.2
   ballLoss: {fileID: 8300000, guid: e3a4bba91342da84894c405790879b57, type: 3}
   levelClip: {fileID: 8300000, guid: 303e6fb67d59c4647baff30b0da5094b, type: 3}
   one: {fileID: 8300000, guid: ff9a1a1a3678db442b8b8d870a95781e, type: 3}
@@ -88,3 +90,5 @@ MonoBehaviour:
   nine: {fileID: 0}
   ten: {fileID: 0}
   aLot: {fileID: 8300000, guid: 39be586d065eeae47928bda2f2334b9f, type: 3}
+  magneticPowerup: {fileID: 2752522084119453991, guid: 0296054d02ef5074a97549dd5fe55ff4,
+    type: 3}

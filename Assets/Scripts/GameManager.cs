@@ -30,15 +30,18 @@ public class GameManager : MonoBehaviour
     public AudioClip ten;
     public AudioClip aLot;
 
+    public GameObject magneticPowerup;
+
     private Text ballCountText;
     private Text levelText;
 
     public int Level { get; private set; } = 1;
 
-    //private List<Enemy> enemies;
     private bool enemiesMoving;
     private bool doingSetup;
     private bool gameover = false;
+
+    private List<GameObject> powerups;
 
     private System.Random random = new System.Random();
 
@@ -84,6 +87,7 @@ public class GameManager : MonoBehaviour
 
         //enemies.Clear();
         boardScript.SetupScene(Level);
+        powerups = new List<GameObject>(GameObject.FindGameObjectsWithTag("Powerup"));
     }
 
     public void GameOver()
@@ -138,6 +142,13 @@ public class GameManager : MonoBehaviour
                 gameover = false;
                 InitGame();
             }
+        }
+
+        powerups.RemoveAll(gameObject => gameObject == null);
+        if (0 == powerups.Count)
+        {
+            var powerup = Instantiate(magneticPowerup, new Vector3(4, 4, 0), Quaternion.identity);
+            powerups.Add(powerup);
         }
 
         //StartCoroutine(MoveEnemies());

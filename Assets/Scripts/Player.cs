@@ -68,5 +68,10 @@ public class Player : MonoBehaviour
             ballRb2d.MovePosition(playerBallVector);
         }
 
+        if(hasMagneticPowerup && Input.GetKeyUp(KeyCode.Space))
+        {
+            hasMagneticPowerup = false;
+        }
+
     }
 }
