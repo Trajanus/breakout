@@ -39,6 +39,30 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        MovePlayer();
+        ApplyPowerups();
+    }
+
+    private void ApplyPowerups()
+    {
+        if (hasMagneticPowerup && Input.GetKey(KeyCode.Space))
+        {
+            GameObject ball = GameObject.Find(Ball.Name);
+            Vector3 playerBallVector = Vector3.Lerp(transform.position, ball.transform.position, 0f);
+
+            var ballRb2d = ball.GetComponent<Rigidbody2D>();
+            ballRb2d.MovePosition(playerBallVector);
+            ballRb2d.velocity = new Vector2(0, BoardManager.instance.ball.maxSpeed);
+        }
+
+        if (hasMagneticPowerup && Input.GetKeyUp(KeyCode.Space))
+        {
+            hasMagneticPowerup = false;
+        }
+    }
+
+    private void MovePlayer()
+    {
         Vector3 gameWorldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float xDiff = rb2D.position.x - gameWorldMousePosition.x;
 
@@ -58,20 +82,5 @@ public class Player : MonoBehaviour
                 rb2D.MovePosition(move);
             }
         }
-
-        if (hasMagneticPowerup && Input.GetKey(KeyCode.Space))
-        {
-            GameObject ball = GameObject.Find(Ball.Name);
-            Vector3 playerBallVector = Vector3.Lerp(transform.position, ball.transform.position, 0f);
-
-            var ballRb2d = ball.GetComponent<Rigidbody2D>();
-            ballRb2d.MovePosition(playerBallVector);
-        }
-
-        if(hasMagneticPowerup && Input.GetKeyUp(KeyCode.Space))
-        {
-            hasMagneticPowerup = false;
-        }
-
     }
 }

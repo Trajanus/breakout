@@ -34,7 +34,9 @@ public class BoardManager : MonoBehaviour
 
     public Vector2 BallStartLocation = new Vector2(3, 3);
 
-    public GameObject ball;
+    public Ball ball;
+
+    public static BoardManager instance = null;
 
     private List<Vector3> validBrickPositions = new List<Vector3>();
 
@@ -75,6 +77,19 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    public void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public void SetupScene(int level)
     {
         bricks = new List<GameObject>();
@@ -83,7 +98,7 @@ public class BoardManager : MonoBehaviour
 
         if (1 == level)
         {
-            ball = Instantiate(ball, new Vector3(rows / 2, 1, 0f), Quaternion.identity) as GameObject;
+            ball = Instantiate<Ball>(ball, new Vector3(rows / 2, 1, 0f), Quaternion.identity);
             ball.name = Ball.Name;
         }
         else

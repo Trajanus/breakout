@@ -59,7 +59,7 @@ MonoBehaviour:
   MaximumValidBrickX: 9
   MinimumValidBrickX: -2
   BallStartLocation: {x: 3, y: 3}
-  ball: {fileID: 2293846891490313190, guid: 91f44f0c9d66c50458ecba08b3b3ff44, type: 3}
+  ball: {fileID: -610189527777090771, guid: 91f44f0c9d66c50458ecba08b3b3ff44, type: 3}
 --- !u!114 &7506643018720611657
 MonoBehaviour:
   m_ObjectHideFlags: 0
